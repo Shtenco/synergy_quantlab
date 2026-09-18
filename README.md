@@ -1,53 +1,27 @@
 # SYNERGY QuantLab
 
-**Leakage-safe strategy validation, purged walk-forward, OOS scoring and deployment gates**
+> **Leakage-safe strategy validation, purged walk-forward, OOS scoring and deployment gates**
 
-Version: `2.0.0` · Python 3.11+ · REST API · Docker · CI · automated tests
+**Enterprise v2.0.0** · FastAPI/OpenAPI · Docker/Compose · RBAC/JWT · PostgreSQL/ClickHouse audit
 
-## Why this exists
-Most trading teams cannot reliably distinguish alpha from leakage, overfit and cost-blind backtests.
+**Designed for:** Quant funds, prop firms, systematic asset managers and broker research desks  
+**Primary endpoint:** `POST /enterprise/v1/validation/evaluate`
 
-## Commercial buyer
-Quant funds, prop firms, broker research desks, systematic asset managers.
+> [!IMPORTANT]
+> Validation infrastructure only. A passing backtest/OOS gate does not guarantee future investment returns.
 
-## Core guarantee
-The software guarantees deterministic interface behavior covered by tests. **It does not guarantee trading profit.** Live-market deployment requires customer-specific OOS validation, fees/spread/slippage/latency/capacity modelling, security review and legal/compliance approval.
+## Institutional package
+Cost-aware validation · explicit deployment gate · tenant RBAC · request-ID audit · metrics · Docker/Compose · due-diligence/pilot documentation.
+
+## Verification
+**21 tests passed** · health smoke **80/80 200** · local p95 **84.8 ms** (~478 req/s). Health smoke only.
 
 ## Quick start
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -e '.[dev]'
+pip install -e '.[dev,enterprise]'
 pytest -q
 python -m synergy_quantlab.api
 ```
 
-Then open `http://localhost:8000/docs`.
-
-## Commercial package
-- standalone installable Python package;
-- versioned FastAPI boundary;
-- deterministic reference core;
-- Dockerfile and GitHub Actions CI;
-- sales one-pager, security boundary, deployment notes and provenance;
-- proprietary evaluation licence ready for a paid pilot.
-
-## Research lineage
-Shtenco/crypto_pump V2; Shtenco/midas_ai_trading_system walk-forward lineage; MQL5 cross-fitting / CatBoost / VaR research
-
-See `docs/PRODUCT_STATUS.md`, `docs/SALES_ONE_PAGER.md`, `docs/SECURITY.md` and `docs/PROVENANCE.md`.
-
-## Enterprise v2.0.0
-
-The repository now includes a separate enterprise boundary around the product core:
-
-- JWT/RBAC roles (`viewer`, `researcher`, `trader`, `risk`, `operator`, `admin`);
-- request-id propagation and auditable product actions;
-- PostgreSQL and ClickHouse audit stores;
-- Bybit V5, CCXT multi-CEX and MetaTrader 5 adapters with live execution disabled by default;
-- retry/circuit breaker controls;
-- health and Prometheus-compatible metrics;
-- Docker Compose deployment reference;
-- deterministic synthetic customer dataset and HTTP/k6 load harnesses.
-
-See `docs/ENTERPRISE_ARCHITECTURE.md`, `docs/ENTERPRISE_DEPLOYMENT.md` and `docs/CUSTOMER_ACCEPTANCE.md` before any customer deployment.
+## CTO package
+[Due diligence](docs/CTO_DUE_DILIGENCE.md) · [Architecture](docs/ARCHITECTURE_DIAGRAMS.md) · [API](docs/API_EXAMPLES.md) · [Security](SECURITY.md) · [Benchmarks](docs/BENCHMARKS_AND_ACCEPTANCE.md) · [SLA/SLO](docs/SLA_SLO.md) · [Deployment](docs/DEPLOYMENT_CHECKLIST.md) · [Pilot](docs/CUSTOMER_PILOT.md)
