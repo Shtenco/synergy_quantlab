@@ -1,0 +1,27 @@
+name: bootstrap-enterprise-v2
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  expand:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Expand verified payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .bootstrap/payload.001 .bootstrap/payload.002 | base64 -d > /tmp/repo.tar.xz
+          mkdir -p /tmp/unpack
+          tar -xJf /tmp/repo.tar.xz -C /tmp/unpack
+          cp -a /tmp/unpack/synergy-quantlab/. .
+          rm -rf .bootstrap
+          rm -f .github/workflows/bootstrap-enterprise-v2.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "release: SYNERGY QuantLab Enterprise v2.0.0"
+          git push
