@@ -1,12 +1,12 @@
 name: bootstrap-enterprise-v2
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
+  issues:
+    types: [opened]
 permissions:
   contents: write
 jobs:
   expand:
-    if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
