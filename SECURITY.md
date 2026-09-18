@@ -1,0 +1,3 @@
+# Security policy — SYNERGY QuantLab
+
+No production secrets in Git. Prefer customer OIDC/mTLS/JWKS, KMS-backed secrets and restricted DB/data networks. Validation data may be proprietary and must follow customer retention/access policy. Research/validation output is not execution authority. PostgreSQL is authoritative audit; ClickHouse is analytical mirror. No SOC 2/ISO/regulatory certification is claimed.
