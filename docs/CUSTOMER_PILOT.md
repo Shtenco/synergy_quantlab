@@ -1,0 +1,3 @@
+# Customer pilot — SYNERGY QuantLab
+
+Objective: distinguish deployable evidence from leakage/overfit under a frozen customer protocol. Define hypothesis, OOS holdout, purge/embargo, costs, baseline and gates before results. Run synthetic sanity checks → customer historical OOS → paper/canary review. Never reselect models using the final holdout after inspection. Pilot acceptance does not imply future profitability.
