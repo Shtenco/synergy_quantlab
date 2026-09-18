@@ -2,6 +2,8 @@
 
 > **Leakage-safe strategy validation, purged walk-forward, OOS scoring and deployment gates**
 
+Version: `2.0.0`
+
 **Enterprise v2.0.0** · FastAPI/OpenAPI · Docker/Compose · RBAC/JWT · PostgreSQL/ClickHouse audit
 
 **Designed for:** Quant funds, prop firms, systematic asset managers and broker research desks  
