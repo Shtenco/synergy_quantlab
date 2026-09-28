@@ -7,6 +7,22 @@ from .core import deployment_gate
 
 CONTRACT_ID = "synergy.trading.validation-decision/v1"
 AUTHORITY = "trading_validation"
+UPSTREAM_CONTRACT_ID = "synergy.trading.portfolio-decision/v1"
+
+
+def validate_portfolio_candidate(portfolio_payload: dict[str, Any]) -> None:
+    confidence = float(portfolio_payload.get("confidence", -1))
+    if not 0.0 <= confidence <= 1.0:
+        raise ValueError("portfolio confidence must be within [0,1]")
+    positions = portfolio_payload.get("positions")
+    if not isinstance(positions, list) or not positions:
+        raise ValueError("portfolio decision must contain positions")
+    for p in positions:
+        side = str(p.get("side", "")).upper()
+        if side not in {"BUY", "SELL", "FLAT"}:
+            raise ValueError("invalid position side")
+        if float(p.get("notional", 0)) < 0:
+            raise ValueError("position notional must be non-negative")
 
 
 def validation_decision_payload(
