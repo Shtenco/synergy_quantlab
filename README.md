@@ -27,3 +27,33 @@ python -m synergy_quantlab.api
 
 ## CTO package
 [Due diligence](docs/CTO_DUE_DILIGENCE.md) · [Architecture](docs/ARCHITECTURE_DIAGRAMS.md) · [API](docs/API_EXAMPLES.md) · [Security](SECURITY.md) · [Benchmarks](docs/BENCHMARKS_AND_ACCEPTANCE.md) · [SLA/SLO](docs/SLA_SLO.md) · [Deployment](docs/DEPLOYMENT_CHECKLIST.md) · [Pilot](docs/CUSTOMER_PILOT.md)
+
+
+---
+
+# 🧪 Место QuantLab в SYNERGY
+
+`synergy_quantlab` — validation authority для торговых исследований, но **не authority будущей доходности**.
+
+```mermaid
+flowchart LR
+    STRAT[📈 Candidate strategy] --> QL[🧪 QuantLab]
+    QL --> PURGE[✂️ Purged / leakage-safe WF]
+    PURGE --> OOS[🔒 OOS score]
+    OOS --> GATE{Deployment gate}
+    GATE -->|pass| RISK[🛡️ RiskGuard]
+    GATE -->|fail| RESEARCH[↩️ Research]
+```
+
+## Воспроизводимость
+
+Уже заявленные `21 tests passed`, health smoke `80/80 200` и локальные latency/throughput числа следует трактовать строго в указанном контексте: health smoke не является доказательством alpha, а локальная API-производительность не является production SLA.
+
+## Интеграции
+
+- [`synergy_midas_ai`](https://github.com/Shtenco/synergy_midas_ai);
+- [`synergy_riskguard`](https://github.com/Shtenco/synergy_riskguard);
+- [`synergy_agi_trader`](https://github.com/Shtenco/synergy_agi_trader);
+- [`synergy_midas_institutional`](https://github.com/Shtenco/synergy_midas_institutional).
+
+[📚 Атлас 75 репозиториев](https://github.com/Shtenco/synergy_system/blob/main/docs/SYNERGY_REPOSITORY_ATLAS.md)
