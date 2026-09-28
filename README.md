@@ -57,3 +57,35 @@ flowchart LR
 - [`synergy_midas_institutional`](https://github.com/Shtenco/synergy_midas_institutional).
 
 [📚 Атлас 75 репозиториев](https://github.com/Shtenco/synergy_system/blob/main/docs/SYNERGY_REPOSITORY_ATLAS.md)
+
+
+---
+
+# 🧪 Глубокая техническая спецификация QuantLab
+
+## Фактический enterprise stack
+
+QuantLab содержит FastAPI service, adapters Bybit/CCXT/MT5, RBAC/auth, audit, metrics, resilience, Postgres/ClickHouse deployment, load tests и release metadata tests.
+
+```mermaid
+flowchart LR
+    CAND[Candidate strategy] --> CORE[Validation core]
+    CORE --> SPLIT[Purged/chronological split]
+    SPLIT --> COST[Cost model]
+    COST --> SCORE[OOS metrics]
+    SCORE --> GATE[Deployment gate]
+    GATE --> AUDIT[Audit event]
+```
+
+## Validation authority boundary
+
+QuantLab может утверждать, что **конкретный artifact прошёл конкретный validation protocol**. Он не может утверждать будущую прибыль или автоматически разрешать live deployment.
+
+## Следующий рубеж
+
+- canonical artifact digest on every evaluation;
+- explicit dataset manifest/split hash;
+- adversarial leakage fixtures;
+- reproducible cost assumptions;
+- cross-service decision trace into RiskGuard/MIDAS;
+- customer OOS/paper/canary acceptance package.
