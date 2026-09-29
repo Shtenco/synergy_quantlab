@@ -253,6 +253,83 @@ QuantLab должен быть независимее от strategy producer, и
 - that dataset hash removes leakage;
 - that validation can authorize broker orders.
 
+## 18. 🔬 Statistical validation requirements beyond current core
+
+The current implementation is a good minimal deterministic gate, but serious strategy research needs stronger anti-overfitting controls.
+
+### Nested model selection
+
+If parameters are selected on the same OOS fold used for reporting, the reported result is no longer a clean holdout. Parameter/model selection should happen inside an inner training-validation loop, leaving an untouched outer test fold.
+
+### Multiple testing
+
+If hundreds of strategies/parameters are tried, the maximum observed Sharpe is biased upward. Evidence should record:
+
+```text
+number_of_candidates_tested
+selection_rule
+pre-registered metric
+final untouched OOS
+```
+
+and ideally report deflated/probabilistic Sharpe or another multiple-testing-aware measure.
+
+### Serial correlation
+
+Daily/strategy returns can be autocorrelated. Plain annualized Sharpe may overstate significance. A robust report should include an autocorrelation-aware estimate or at minimum the return ACF.
+
+### Confidence intervals
+
+Point estimates alone are insufficient. Bootstrap/block-bootstrap intervals for return, Sharpe and drawdown should be preserved.
+
+## 19. 🧪 Purge/embargo invariants
+
+For every fold automatically assert:
+
+```text
+max(train_idx) < min(test_idx)
+distance respects purge
+next fold respects embargo
+test indices never overlap improperly
+all indices are in [0,n)
+```
+
+For label horizons spanning future bars, purge must be related to the maximum label horizon, not chosen arbitrarily.
+
+## 20. 📋 Validation evidence artifact
+
+A promoted run should save:
+
+- protocol id;
+- dataset SHA-256;
+- strategy commit;
+- folds and exact indices;
+- label horizon;
+- purge/embargo;
+- costs;
+- per-fold metrics;
+- aggregate metrics;
+- candidate count;
+- warnings;
+- final gate;
+- software/dependency versions.
+
+## 21. 🚦 Meaning of gates
+
+`RESEARCH`, `PAPER`, `CANARY` are maturity states, not performance guarantees.
+
+A CANARY candidate still needs:
+
+- capital limit;
+- kill switch;
+- live slippage/fee tracking;
+- drift monitoring;
+- rollback policy.
+
+## 22. ✅ Promotion gate
+
+QuantLab becomes strong validation authority only when its evidence artifact is immutable/reproducible and downstream governance consumes the same decision without silently recomputing or overriding its statistics.
+
 ---
 
 [🧭 SYNERGY SYSTEM](https://github.com/Shtenco/synergy_system) · [📚 Atlas](https://github.com/Shtenco/synergy_system/blob/main/docs/SYNERGY_REPOSITORY_ATLAS.md)
