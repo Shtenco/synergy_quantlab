@@ -330,6 +330,42 @@ A CANARY candidate still needs:
 
 QuantLab becomes strong validation authority only when its evidence artifact is immutable/reproducible and downstream governance consumes the same decision without silently recomputing or overriding its statistics.
 
+## 23. 🏗️ Architecture
+
+```mermaid
+flowchart LR
+    C[Portfolio candidate] --> DATA[Frozen dataset / manifest]
+    DATA --> WFO[Purged walk-forward]
+    C --> WFO
+    WFO --> COST[Cost adjustment]
+    COST --> MET[Performance report]
+    MET --> GATE[RESEARCH / REJECT / PAPER / CANARY]
+    GATE --> E[validation-decision/v1]
+    E --> GOV[Risk / deployment governance]
+```
+
+QuantLab intentionally sits between strategy production and deployment governance.
+
+## 24. 📥 Inputs / 📤 Outputs
+
+### Inputs
+- portfolio candidate payload;
+- returns or fold-level outcomes;
+- transaction-cost assumptions;
+- split geometry;
+- validation thresholds;
+- protocol id;
+- optional dataset manifest SHA-256.
+
+### Outputs
+- cost-adjusted metrics;
+- validation gate;
+- warnings;
+- candidate event binding;
+- machine-readable validation decision.
+
+It does not output broker orders or settle trades.
+
 ---
 
 [🧭 SYNERGY SYSTEM](https://github.com/Shtenco/synergy_system) · [📚 Atlas](https://github.com/Shtenco/synergy_system/blob/main/docs/SYNERGY_REPOSITORY_ATLAS.md)
