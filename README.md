@@ -1,10 +1,10 @@
-# 🧪 SYNERGY QuantLab — verified technical dossier
+#  SYNERGY QuantLab — verified technical dossier
 
-> **Статус:** 🟡 CANDIDATE validation laboratory.
+> **Статус:**  CANDIDATE validation laboratory.
 > **Проверено по фактическому `main`:** 29.09.2026.
 > **Роль:** trading validation authority, а не signal/execution engine.
 
-## 1. 🎯 Задача
+## 1.  Задача
 
 QuantLab реализует reproducible validation primitives: purged walk-forward splits, cost adjustment, performance metrics и deployment gate.
 
@@ -18,7 +18,7 @@ backtest result
 != automatic deployment
 ```
 
-## 2. 📦 Фактический состав
+## 2.  Фактический состав
 
 Repository содержит:
 
@@ -29,7 +29,7 @@ Repository содержит:
 - tests;
 - Docker/deploy/loadtests/docs/examples.
 
-## 3. 🧠 Purged walk-forward
+## 3.  Purged walk-forward
 
 `purged_walk_forward(n,min_train,test_size,purge,embargo)` строит последовательные folds.
 
@@ -45,7 +45,7 @@ next test starts after embargo
 
 Параметры должны удовлетворять валидной split geometry; иначе `ValueError`.
 
-## 4. 📊 Performance report
+## 4.  Performance report
 
 Для returns:
 
@@ -82,7 +82,7 @@ Report:
 - max drawdown;
 - hit rate.
 
-## 5. 💸 Cost adjustment
+## 5.  Cost adjustment
 
 `cost_adjust()`:
 
@@ -94,7 +94,7 @@ r^{net}_t=r^{raw}_t-rac{costBps_t}{10000}
 
 Это простая линейная cost model; она не включает nonlinear market impact автоматически.
 
-## 6. 🚦 Deployment gate
+## 6.  Deployment gate
 
 Defaults:
 
@@ -113,7 +113,7 @@ min_sharpe = 0.5
 
 То есть gate сам по себе никогда не возвращает «FULL PRODUCTION».
 
-## 7. 🔗 Federation contract
+## 7.  Federation contract
 
 ```text
 CONTRACT_ID          = synergy.trading.validation-decision/v1
@@ -136,7 +136,7 @@ AUTHORITY            = trading_validation
 - warnings;
 - gate.
 
-## 8. 🛡️ Authority boundaries
+## 8.  Authority boundaries
 
 ```text
 CANARY != production
@@ -147,7 +147,7 @@ validation decision != broker authorization
 dataset hash != dataset quality
 ```
 
-## 9. 🧪 Validation discipline
+## 9.  Validation discipline
 
 Сильный run должен фиксировать:
 
@@ -165,7 +165,7 @@ dataset hash != dataset quality
 
 Без этого metric snapshot трудно независимо воспроизвести.
 
-## 10. ⚠️ Current limitations
+## 10.  Current limitations
 
 - Sharpe uses simple sample std;
 - no autocorrelation/Newey-West correction;
@@ -177,7 +177,7 @@ dataset hash != dataset quality
 
 Это не ошибки, а границы текущей минимальной validation implementation.
 
-## 11. 🧪 Required next benchmarks
+## 11.  Required next benchmarks
 
 - leakage unit tests;
 - purged fold geometry properties;
@@ -190,7 +190,7 @@ dataset hash != dataset quality
 - dataset manifest integrity;
 - paper→canary promotion audit.
 
-## 12. 🛠️ Воспроизводимость
+## 12.  Воспроизводимость
 
 ```bash
 git clone https://github.com/Shtenco/synergy_quantlab.git
@@ -199,7 +199,7 @@ python -m pip install -e .
 pytest -q
 ```
 
-## 13. 🗺️ Карта repository
+## 13.  Карта repository
 
 | Path | Role |
 |---|---|
@@ -211,7 +211,7 @@ pytest -q
 | `deploy/` | deployment assets |
 | `loadtests/` | load tests |
 
-## 14. 🔗 Место в SYNERGY
+## 14.  Место в SYNERGY
 
 ```text
 portfolio candidate
@@ -222,20 +222,20 @@ portfolio candidate
 
 QuantLab должен быть независимее от strategy producer, иначе validation теряет смысл.
 
-## 15. 📊 Evidence maturity
+## 15.  Evidence maturity
 
 | Layer | Status |
 |---|---|
-| purged WFO | ✅ |
-| costs | ✅ simple model |
-| metrics | ✅ |
-| deployment gate | ✅ |
-| typed contract | ✅ |
-| full statistical correction suite | ❌ |
-| observed federation E2E | ❌ |
+| purged WFO |  |
+| costs |  simple model |
+| metrics |  |
+| deployment gate |  |
+| typed contract |  |
+| full statistical correction suite |  |
+| observed federation E2E |  |
 | live deployment authority | intentionally bounded |
 
-## 16. 🚀 Roadmap
+## 16.  Roadmap
 
 1. exact dataset manifest;
 2. nested WFO;
@@ -245,7 +245,7 @@ QuantLab должен быть независимее от strategy producer, и
 6. validation evidence artifacts;
 7. M5 observed execution.
 
-## 17. 🛑 Что проект НЕ утверждает
+## 17.  Что проект НЕ утверждает
 
 - that Sharpe 0.5 means strategy is profitable live;
 - that CANARY means production-safe;
@@ -253,7 +253,7 @@ QuantLab должен быть независимее от strategy producer, и
 - that dataset hash removes leakage;
 - that validation can authorize broker orders.
 
-## 18. 🔬 Statistical validation requirements beyond current core
+## 18.  Statistical validation requirements beyond current core
 
 The current implementation is a good minimal deterministic gate, but serious strategy research needs stronger anti-overfitting controls.
 
@@ -282,7 +282,7 @@ Daily/strategy returns can be autocorrelated. Plain annualized Sharpe may overst
 
 Point estimates alone are insufficient. Bootstrap/block-bootstrap intervals for return, Sharpe and drawdown should be preserved.
 
-## 19. 🧪 Purge/embargo invariants
+## 19.  Purge/embargo invariants
 
 For every fold automatically assert:
 
@@ -296,7 +296,7 @@ all indices are in [0,n)
 
 For label horizons spanning future bars, purge must be related to the maximum label horizon, not chosen arbitrarily.
 
-## 20. 📋 Validation evidence artifact
+## 20.  Validation evidence artifact
 
 A promoted run should save:
 
@@ -314,7 +314,7 @@ A promoted run should save:
 - final gate;
 - software/dependency versions.
 
-## 21. 🚦 Meaning of gates
+## 21.  Meaning of gates
 
 `RESEARCH`, `PAPER`, `CANARY` are maturity states, not performance guarantees.
 
@@ -326,11 +326,11 @@ A CANARY candidate still needs:
 - drift monitoring;
 - rollback policy.
 
-## 22. ✅ Promotion gate
+## 22.  Promotion gate
 
 QuantLab becomes strong validation authority only when its evidence artifact is immutable/reproducible and downstream governance consumes the same decision without silently recomputing or overriding its statistics.
 
-## 23. 🏗️ Architecture
+## 23.  Architecture
 
 ```mermaid
 flowchart LR
@@ -346,7 +346,7 @@ flowchart LR
 
 QuantLab intentionally sits between strategy production and deployment governance.
 
-## 24. 📥 Inputs / 📤 Outputs
+## 24.  Inputs /  Outputs
 
 ### Inputs
 - portfolio candidate payload;
@@ -368,4 +368,4 @@ It does not output broker orders or settle trades.
 
 ---
 
-[🧭 SYNERGY SYSTEM](https://github.com/Shtenco/synergy_system) · [📚 Atlas](https://github.com/Shtenco/synergy_system/blob/main/docs/SYNERGY_REPOSITORY_ATLAS.md)
+[ SYNERGY SYSTEM](https://github.com/Shtenco/synergy_system) · [ Atlas](https://github.com/Shtenco/synergy_system/blob/main/docs/SYNERGY_REPOSITORY_ATLAS.md)
