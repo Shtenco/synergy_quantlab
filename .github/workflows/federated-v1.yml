@@ -1,0 +1,27 @@
+name: Pinned Federated Synthetic Benchmark
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'benchmarks/federated_v1/**'
+      - '.github/workflows/federated-v1.yml'
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy pandas
+      - name: Fetch exact source versions
+        run: bash benchmarks/federated_v1/fetch_pinned.sh "$GITHUB_WORKSPACE/../federation"
+      - name: Run synthetic integration
+        run: python benchmarks/federated_v1/run_pinned.py --sibling-root "$GITHUB_WORKSPACE/../federation" --output benchmarks/federated_v1/artifacts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pinned-synthetic-benchmark
+          path: benchmarks/federated_v1/artifacts/
+          if-no-files-found: warn
