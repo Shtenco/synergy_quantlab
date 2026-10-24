@@ -1,3 +1,10 @@
+<!-- SCIENTIFIC-V4-2026:START -->
+<img src="assets/readme/scientific-architecture-v4.svg" width="100%" alt="QuantLab evaluation architecture"/>
+
+**[Исследовательское досье V4 — алгоритмы, математические формулы, проверка результатов](docs/SCIENTIFIC_DOSSIER_V4_2026.md)**
+
+<!-- SCIENTIFIC-V4-2026:END -->
+
 #  SYNERGY QuantLab — verified technical dossier
 
 > **Статус:**  CANDIDATE validation laboratory.
